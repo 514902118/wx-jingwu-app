@@ -1,0 +1,23 @@
+{
+  "name": "wx-jingwu-app",
+  "version": "1.0.0",
+  "description": "这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/514902118/wx-jingwu-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/514902118/wx-jingwu-app/issues"
+  },
+  "homepage": "https://github.com/514902118/wx-jingwu-app#readme",
+  "dependencies": {
+    "weui-miniprogram": "^1.0.7"
+  },
+  "devDependencies": {}
+}
