@@ -6,6 +6,8 @@
     "mp-cell": "/miniprogram_npm/weui-miniprogram/cell/cell",
     "mp-checkbox": "/miniprogram_npm/weui-miniprogram/checkbox/checkbox",
     "mp-checkbox-group": "/miniprogram_npm/weui-miniprogram/checkbox-group/checkbox-group",
-    "mp-form": "/miniprogram_npm/weui-miniprogram/form/form"
+    "mp-form": "/miniprogram_npm/weui-miniprogram/form/form",
+    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon",
+    "mp-uploader": "/miniprogram_npm/weui-miniprogram/uploader/uploader"
   }
 }

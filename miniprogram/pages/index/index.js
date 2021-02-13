@@ -16,9 +16,32 @@ Page({
       }
     }).then(res => {
       console.log('获取用户手机号-开始')
-      let phoneNumber = res.result.phoneNumber
+      let phoneNumber = res.result.phoneNumber;
+      wx.setStorageSync('phone', phoneNumber);
       // self.getLocationChange(phoneNumber)
-      self.setintervalHandle(phoneNumber);
+      self.gotcontent(phoneNumber);
+      wx.getLocation({
+        type: 'wgs84',
+        altitude: true,
+        isHighAccuracy: true,
+        highAccuracyExpireTime: 3500,
+        success (res) {
+          const latitude = res.latitude
+          const longitude = res.longitude
+          self.setData({
+            disabled:false,
+            latitude: latitude,
+            longitude: longitude
+          })
+  
+          self.rangeAddHandle(latitude, longitude, phoneNumber)
+  
+        }
+      })
+      setTimeout(() => {
+        self.setintervalHandle(phoneNumber);
+      }, 1000);
+     
     }).catch(err => {
       console.error(err);
     });
@@ -37,20 +60,28 @@ Page({
         num: num,
         numtext: `第${num}次-获取位置`
       });
-    }, 3000);
+    }, 300000);
   },
 
   // 清除定时器
   clearIntervalHandle () {
     console.log("清除定时器");
     clearInterval(this.data.timer)
-    this.setData({
-      disabled:true,
-      num: 0,
-      numtext: `结束-获取位置`,
-      latitude: `最后一次纬度：${this.data.latitude}`,
-      longitude: `最后一次经度：${this.data.longitude}`
+    wx.cloud.callFunction({
+      name: 'finish',
+      data: {
+        phone:  wx.getStorageSync('phone')
+      }
+    }).then((res) => {
+      this.setData({
+        disabled:true,
+        num: 0,
+        numtext: `结束-获取位置`,
+        latitude: `最后一次纬度：${this.data.latitude}`,
+        longitude: `最后一次经度：${this.data.longitude}`
+      })
     })
+    
   },
 
   getLocationChange (phoneNumber) {
@@ -71,13 +102,7 @@ Page({
         })
 
         self.rangeAddHandle(latitude, longitude, phoneNumber)
-        // wx.showToast({
-        //   title: '警情已发出',
-        //   icon: 'success',
-        //   duration: 2000
-        // })
-        // 发送报警信息 
-        // self.privateChange(latitude, longitude, phoneNumber)
+
       }
     })
   },
@@ -94,34 +119,14 @@ Page({
 
       })
   },
-  // 提交信息
-  privateChange (latitude, longitude, phoneNumber) {
-    console.log(phoneNumber)
-    wx.cloud.callFunction({
-      name: 'private',
-      data: {
-        longitude: latitude,
-        latitude: longitude,
-        mobile: phoneNumber,
-        areaCode: '654326' //吉木乃
-      }
-    }).then((res) => {
-      this.makePhoneCallChange();
-    })
-  },
 
-  // 扫一扫
-  scanCodeHandle () {
-    wx.scanCode({
-      success: (res) => {
-        console.log(res)
-      }
+  /**
+   * 填写工作日志
+   */
+  gotcontent(phoneNumber){
+    wx.navigateTo({
+      url: '/pages/cont/index?phone'+ phoneNumber,
+      success: function (res) {}
     })
-  },
-
-  makePhoneCallChange () {
-    wx.makePhoneCall({
-      phoneNumber: '0906-6198110' //阿勒泰市局电话号码
-    })
-  },
+  }
 })

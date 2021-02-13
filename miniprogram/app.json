@@ -11,7 +11,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于报警定位"
+      "desc": "你的位置信息将用于警务站工作记录"
     }
   },
   "sitemapLocation": "sitemap.json",

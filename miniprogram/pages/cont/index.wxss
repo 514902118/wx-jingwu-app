@@ -3,3 +3,20 @@
 .picker{padding-left: 16px;}
 .weui-btn-area button{ width:100%; background-color: #053eb0; }
 .index-box{ background: #fff; padding: 20rpx; border-radius: 40rpx; margin-top: 40rpx;}
+
+.img-main{
+ width:100%;
+}
+.img-box{
+  float: left;
+  margin: 5px;
+  width: 160px;
+  height: 160px;
+  background: #eee;
+  line-height: 160px;
+  text-align: center;
+}
+.img-box image{
+  width: 160px;
+  height: 160px;
+}
